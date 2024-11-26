@@ -1,0 +1,114 @@
+https://laravel-livewire.com/docs/2.x/quickstart // site livewire
+https://getbootstrap.com/docs/5.3/getting-started/introduction/  // Bootstrap 5.3
+https://laravel-livewire.com/screencasts/form-inputs-text // Form Elements
+
+--------------------------------------------------------------------------------------------
+composer create-project laravel/laravel:^9.0 example-app
+composer install // instala as bibliotecas do laravel e crie a pasta vendor
+composer require livewire/livewire // instala o livewire
+php artisan make:model Category -m // cria um model e um migrate
+php artisan migrate // cria as tabelas no banco de dados
+php artisan migrate:refresh // ele apaga recria as tabelas no banco de dados
+php artisan make:livewire Admin/Contratos/HeaderComponent // Cria um component
+php artisan serve // istarta o servidor
+
+--------------------------------------------------------------------------------------------
+Funções do Model:
+Representa uma tabela no banco de dados.
+
+Funções da Migration:
+Criar e modificar tabelas no banco de dados.
+
+--------------------------------------------------------------------------------------------
+wire:ignore.self // padrão modal
+d-flex justify-content-center  //  centralizar o botão
+data-bs-dismiss="modal" // fecha o botão
+p-2 // ajustar o tamanho do botão em uma tabela/modal
+mb-2 // dar espaçamento entre um botão/input e outro
+
+--------------------------------------------------------------------------------------------
+
+php = {{$teste}}
+
+<livewire:admin.sesau.cubo.cubo-component title="Cubo" form="cubo.form" namespace="App\Models\Admin\Sesau\Cubo\Cubo" />
+
+--------------------------------------------------------------------------------------------
+model = app\model
+controlerlivewire = app\http\livewire
+bladelivewire = resources\views\livewire
+bladelaravel = resources\views
+components = app/Http/Livewire
+
+--------------------------------------------------------------------------------------------
+form type = text, number, date, time.
+form livewire = wire:model.defer="data.nome"
+form error =  @error('data.nome')
+
+--------------------------------------------------------------------------------------------
+@foreach ($example as $table)
+@endforeach
+
+--------------------------------------------------------------------------------------------
+
+PAGINAÇÃO EM UM PROJETO
+
+use Livewire\WithPagination;
+use WithPagination; //para incluir paginação no blade
+protected $paginationTheme = 'bootstrap'; // Estilo de paginação com Bootstrap
+
+
+protected $example;
+
+ public function render()
+    {
+
+        $this->systens = System::where('id', '>', 0)->orderBy('id', 'desc')->paginate(5);
+        return view('livewire.admin.contratos.system-component', [
+            'systens' => $this->systens
+        ]);
+    }
+
+E NO BLADE DEPOIS DO @foreach
+
+{{ $example->links() }}
+
+--------------------------------------------------------------------------------------------
+
+FILTRO MAIS DE 1 ITEM DE UMA VEZ
+
+public $search;
+
+ public function render()
+    {
+        // consulta a paginação e filtro baseado na pesquisa
+        $systens = System::when($this->search, function($query) {
+            return $query->where('name', 'like', '%' . $this->search . '%')
+                         ->orWhere('email', 'like', '%' . $this->search . '%')
+                         ->orWhere('cpf', 'like', '%' . $this->search . '%')
+                         ->orWhere('numero', 'like', '%' . $this->search . '%');
+        })->paginate(3);
+
+        return view('livewire.admin.contratos.system-component', [
+            'systens' => $systens,
+        ]);
+    }
+
+E NO INPUT DO BLADE
+
+ wire:model="search"
+
+--------------------------------------------------------------------------------------------
+SISTEMA CHECK
+
+public $check = [];
+
+value="{{$table->id}}" wire:model="check"
+
+FORA DO @foreach:
+Show email : {{ var_export($check) }}
+
+--------------------------------------------------------------------------------------------
+
+})->orderBy('id', 'asc') // Adiciona ordenação fixa
+
+--------------------------------------------------------------------------------------------
