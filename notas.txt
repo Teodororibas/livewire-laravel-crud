@@ -109,6 +109,40 @@ Show email : {{ var_export($check) }}
 
 --------------------------------------------------------------------------------------------
 
-})->orderBy('id', 'asc') // Adiciona ordenação fixa
+})->orderBy('id', 'asc') // Adiciona ordenação fixa em uma tabela
+
+--------------------------------------------------------------------------------------------
+
+COMO UPAR PROJETO NO GITHUB
+
+git init // Cria um novo repositorio
+
+git add // Adicione todos os arquivos do projeto ao repositório
+
+git commit -m "teste commit" // Primeiro ponto de registro no histórico do Git
+
+git remote add origin https://github.com/seu-usuario/seu-repositorio.git // Configurar repositorio manualmente
+
+git branch -M main // Enviar os aquivos para o github
+
+git push -u origin main // Enviar os aquivos para o github
+
+--------------------------------------------------------------------------------------------
+
+COMO EDITAR O PROJETO NO GITHUB
+
+git add // Adicione todos os arquivos do projeto ao repositório
+
+git add nome-do-arquivo // Ou se preferir adicionar arquivos específicos
+
+git commit -m "Descrição das alterações feitas" // Criar um commit com as alterações
+
+git pull origin main // Enviar as alterações para o GitHub
+
+--------------------------------------------------------------------------------------------
+
+COMO PEGAR UM PROJETO FEITO DO GITGUB
+
+git clone https://github.com/seu-usuario/seu-repositorio.git
 
 --------------------------------------------------------------------------------------------
