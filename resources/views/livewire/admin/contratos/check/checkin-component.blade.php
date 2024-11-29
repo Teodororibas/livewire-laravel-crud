@@ -50,7 +50,6 @@
                         @endforeach
 
                         <label class="list-group-item d-flex gap-3 bg-body-tertiary">
-                            <input class="form-check-input form-check-input-placeholder bg-body-tertiary flex-shrink-0 pe-none" disabled="" type="checkbox" value="" style="font-size: 1.375em;">
                             <span class="pt-1 form-checked-content">
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control" wire:model="search" placeholder="Data">
