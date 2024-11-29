@@ -55,12 +55,6 @@
                                     <input type="date" class="form-control" wire:model="search" placeholder="Data">
                                     <label for="floatingInput">Pesquise pela Data</label>
                                 </div>
-                                <small class="d-block text-body-secondary">
-                                    <div>
-                                        <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#list-check"></use></svg>
-                                        Escolha uma data...
-                                    </div>
-                                </small>
                             </span>
                             {{ $checkins->links() }}
                         </label>
