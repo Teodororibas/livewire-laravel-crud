@@ -28,7 +28,6 @@
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal{{ $table->id }}">Deletar</button>
 
                                     {{-- Modal excluir --}}
-
                                     <div wire:ignore.self class="modal fade" id="myModal{{ $table->id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -77,32 +76,38 @@
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" placeholder="Titulo" required wire:model.defer="title">
                         <label for="floatingInput">Título</label>
+                        @error('title') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" placeholder="Descrição" required wire:model.defer="description">
                         <label for="floatingInput">Descrição</label>
+                        @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-floating mb-3">
                         <input type="date" class="form-control" placeholder="Data Inicial" required wire:model.defer="data_list">
                         <label for="floatingInput">Data Inicial</label>
+                        @error('data_list') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-floating mb-3">
                         <input type="time" class="form-control" placeholder="Hora Inicial" required wire:model.defer="time_inicial">
                         <label for="floatingInput">Hora Inicial</label>
+                        @error('time_inicial') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-floating mb-3">
                         <input type="date" class="form-control" placeholder="Data Final" required wire:model.defer="data_final">
                         <label for="floatingInput">Data Final</label>
+                        @error('data_final') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-floating mb-3">
                         <input type="time" class="form-control" placeholder="Hora Final" required wire:model.defer="time_final">
                         <label for="floatingInput">Hora Final</label>
+                        @error('time_final') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                     <button class="w-100 btn btn-lg {{ $itemId ? 'btn-warning' : 'btn-primary' }} mb-2" type="submit">
                         {{ $itemId ? 'Editar' : 'Salvar' }}
                     </button>
                     @if($itemId)
-                        <button class="w-100 btn btn-lg btn-danger" wire:click="cancel">Cancelar</button>
+                        <button type="button" class="w-100 btn btn-lg btn-danger" wire:click="cancel">Cancelar</button>
                     @endif
                 </form>
             </div>

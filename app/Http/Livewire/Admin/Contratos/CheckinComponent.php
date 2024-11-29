@@ -31,7 +31,7 @@ class CheckinComponent extends Component
             'title'=>'required',
             'data_list'=>'required',
             'description'=>'required',
-            'data_final'=>'required',
+            'data_final' => 'required|date|after_or_equal:data_list',
             'time_inicial'=>'required',
             'time_final'=>'required',
 
