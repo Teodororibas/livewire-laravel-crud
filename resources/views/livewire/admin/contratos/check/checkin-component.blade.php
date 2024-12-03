@@ -7,8 +7,10 @@
                 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
                     <div class="list-group">
                         @foreach ($checkins as $table)
-                            <label class="list-group-item d-flex gap-3">
-                                <livewire:admin.contratos.check-component :key="$table->id" :table="$table"/>
+                            <label class="list-group-item d-flex gap-3 {{ $table->check ? 'opacity-50' : '' }}" id="check-item-{{ $table->id }}">
+
+                                <livewire:admin.contratos.check-component :key="$table->id" :table="$table" />
+
                                 <span class="pt-1 form-checked-content">
                                     <strong>{{ $table->title }}</strong>
                                     <div class="pt-1 form-checked-content">
@@ -23,11 +25,11 @@
                                         <svg class="bi me-1" width="1em" height="1em"><use xlink:href="#alarm" /></svg>{{ $table->time_final }}
                                     </small>
 
-                                    <button class="btn btn-warning btn-sm" wire:click="edit({{ $table }})">Editar</button>
-
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal{{ $table->id }}">Deletar</button>
+                                    <button class="btn btn-warning btn-sm" wire:click="edit({{ $table }})" {{ $table->check ? 'disabled' : '' }}>Editar</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#myModal{{ $table->id }}" {{ $table->check ? 'disabled' : '' }}>Deletar</button>
 
                                     {{-- Modal excluir --}}
+
                                     <div wire:ignore.self class="modal fade" id="myModal{{ $table->id }}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -107,3 +109,4 @@
         </div>
     </div>
 </div>
+

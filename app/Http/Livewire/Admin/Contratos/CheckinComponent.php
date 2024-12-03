@@ -9,8 +9,8 @@ use App\Models\Checkin;
 
 class CheckinComponent extends Component
 {
-
     protected $checkins;
+    public $check, $table;
     public $itemid;
     public $title, $data_list, $description, $data_final;
     public $time_inicial, $time_final;
@@ -24,7 +24,6 @@ class CheckinComponent extends Component
         'deleteCategory'=>'destroy',
         'refreshCheckinComponent' => '$refresh',
     ];
-
 
         // Validation Rules
         protected $rules = [
@@ -51,7 +50,19 @@ class CheckinComponent extends Component
     }
 
 
+    public function mount($table = null)
+    {
+        // Se não houver $table, significa que estamos criando um novo item
+        if (!$table) {
+            $this->check = false;  // Inicializa o checkbox desmarcado
+        } else {
+            $this->check = $table->check;  // Caso contrário, pega o estado do checkbox do banco
+            $this->table = $table;
+        }
+    }
+
     public function resetFields(){
+        $this->check = false;
         $this->itemId = null;
         $this->title = null;
         $this->description = null;
@@ -59,31 +70,28 @@ class CheckinComponent extends Component
         $this->time_inicial = null;
         $this->data_final = null;
         $this->time_final = null;
-
     }
 
-    public function store(){
-    // dd('$this->name');
+    public function store()
+    {
         $this->validate();
-        // dd($this->name);
-        try{
+        try {
             Checkin::create([
-                'title'=> $this->title,
-                'description'=> $this->description,
-                'data_list'=> $this->data_list,
-                'time_inicial'=> $this->time_inicial,
-                'data_final'=> $this->data_final,
-                'time_final'=> $this->time_final
+                'title' => $this->title,
+                'description' => $this->description,
+                'data_list' => $this->data_list,
+                'time_inicial' => $this->time_inicial,
+                'data_final' => $this->data_final,
+                'time_final' => $this->time_final,
+                'check' => false,  // Garantir que o checkbox seja desmarcado ao criar
             ]);
 
-            session()->flash('success','Conta criada com Sucesso!!');
+            session()->flash('success', 'Check-in criado com sucesso!');
+            $this->resetFields();  // Limpar os campos após a criação
 
-            $this->resetFields();
-            $this->emit('refreshCheckinComponent');
-        }catch(\Exception $e){
-
-            session()->flash('error','Erro ao criar a Conta!');
-
+            $this->emit('refreshCheckinComponent');  // Emitir evento para atualizar
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao criar o Check-in!');
             $this->resetFields();
         }
     }
@@ -110,12 +118,10 @@ class CheckinComponent extends Component
         }
     }
 
-
     public function cancel()
     {
         $this->resetFields();
     }
-
 
     public function update()
     {
@@ -138,7 +144,7 @@ class CheckinComponent extends Component
             session()->flash('error', 'Erro ao atualizar o check-in.');
             $this->cancel();
     }
-}
+    }
 
     public function destroy($item_id){
     //    dd($item_id);
